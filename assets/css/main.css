@@ -1823,13 +1823,13 @@ input, select, textarea {
 		-webkit-appearance: none;
 		-ms-appearance: none;
 		appearance: none;
-		-moz-transition: border-color 0.2s ease;
-		-webkit-transition: border-color 0.2s ease;
-		-ms-transition: border-color 0.2s ease;
-		transition: border-color 0.2s ease;
-		background-color: transparent;
-		border: solid 1px !important;
-		border-color: rgba(255, 255, 255, 0.15) !important;
+		-moz-transition: all 0.3s ease;
+		-webkit-transition: all 0.3s ease;
+		-ms-transition: all 0.3s ease;
+		transition: all 0.3s ease;
+		background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 107, 157, 0.1));
+		border: solid 2px !important;
+		border-color: rgba(0, 212, 255, 0.3) !important;
 		border-radius: 3em;
 		color: #ffffff !important;
 		cursor: pointer;
@@ -1846,6 +1846,8 @@ input, select, textarea {
 		text-decoration: none;
 		text-transform: uppercase;
 		white-space: nowrap;
+		box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+		transform: translateZ(0);
 	}
 
 		input[type="submit"]:after,
@@ -1941,7 +1943,10 @@ input, select, textarea {
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			border-color: rgba(255, 255, 255, 0.55) !important;
+			border-color: rgba(0, 212, 255, 0.8) !important;
+			background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 157, 0.2));
+			box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4), 0 0 30px rgba(255, 107, 157, 0.2);
+			transform: translateY(-2px) translateZ(0);
 		}
 
 			input[type="submit"]:hover:after,
@@ -2891,27 +2896,184 @@ input, select, textarea {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 20px; 
+		gap: 40px; 
+		perspective: 1000px;
 	}
 	
 	.intro-text {
 		text-align: right; 
+		transform: translateX(-20px);
+		animation: slideInLeft 1s ease-out;
+	}
+	
+	.intro-text h1 {
+		background: linear-gradient(45deg, #ffffff, #00d4ff, #ff6b9d);
+		background-size: 300% 300%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		animation: gradientShift 3s ease-in-out infinite;
+		text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+	}
+	
+	.intro-image {
+		transform-style: preserve-3d;
+		animation: slideInRight 1s ease-out;
 	}
 	
 	.intro-image img {
 		max-width: 300px; 
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
 		border-radius: 50%; 
+		transition: all 0.3s ease;
+		box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4),
+					0 0 50px rgba(255, 107, 157, 0.3);
+		border: 4px solid rgba(0, 212, 255, 0.3);
+		display: block;
+		margin: 0 auto;
+		position: relative;
+		z-index: 10;
+	}
+	
+	.intro-image img:hover {
+		transform: rotateY(15deg) rotateX(5deg) scale(1.05);
+		box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4),
+					0 0 60px rgba(255, 107, 157, 0.3);
+	}
+	
+	@keyframes slideInLeft {
+		from {
+			opacity: 0;
+			transform: translateX(-100px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(-20px);
+		}
+	}
+	
+	@keyframes slideInRight {
+		from {
+			opacity: 0;
+			transform: translateX(100px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+	
+	@keyframes gradientShift {
+		0%, 100% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
 	}
 	
 	@media screen and (max-width: 768px) {
 		.intro-container {
 			flex-direction: column;
+			gap: 30px;
 		}
 	
 		.intro-text {
 			text-align: center;
+			transform: translateX(0);
+		}
+		
+		.intro-image img {
+			max-width: 250px;
 		}
 	}
+	
+	@media screen and (max-width: 480px) {
+		.intro-container {
+			gap: 20px;
+		}
+		
+		.intro-image img {
+			max-width: 200px;
+		}
+	}
+
+/* Enhanced Section Animations */
+.wrapper {
+	animation: fadeInUp 0.8s ease-out;
+	transform: translateZ(0);
+}
+
+.wrapper:nth-child(even) {
+	animation-delay: 0.2s;
+}
+
+.wrapper:nth-child(odd) {
+	animation-delay: 0.1s;
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(40px) translateZ(0);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) translateZ(0);
+	}
+}
+
+/* Project Cards 3D Effect */
+.features section {
+	transition: all 0.3s ease;
+	transform: translateZ(0);
+}
+
+.features section:hover {
+	transform: translateY(-10px) rotateX(5deg) translateZ(0);
+	box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+}
+
+.features section .icon {
+	transition: all 0.3s ease;
+	transform: translateZ(20px);
+}
+
+.features section:hover .icon {
+	transform: translateZ(30px) rotateY(10deg) scale(1.1);
+	color: #00d4ff;
+	text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+/* Parallax Effect for Background */
+body {
+	background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #000000 100%);
+	background-attachment: fixed;
+}
+
+/* Floating Elements */
+@keyframes float {
+	0%, 100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+.box.alt .row.gtr-uniform section {
+	animation: float 6s ease-in-out infinite;
+}
+
+.box.alt .row.gtr-uniform section:nth-child(2) {
+	animation-delay: -2s;
+}
+
+.box.alt .row.gtr-uniform section:nth-child(3) {
+	animation-delay: -4s;
+}
 	
 
 /* Split */
@@ -3547,7 +3709,9 @@ input, select, textarea {
 
 	#sidebar {
 		padding: 2.5em 2.5em 0.5em 2.5em ;
-		background: black;
+		background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 107, 157, 0.1));
+		backdrop-filter: blur(10px);
+		border-right: 2px solid rgba(0, 212, 255, 0.3);
 		cursor: default;
 		height: 100vh;
 		left: 0;
@@ -3800,11 +3964,13 @@ input, select, textarea {
 			}
 
 			#sidebar nav a:hover {
-				color: rgba(255, 255, 255, 0.55);
+				color: #00d4ff;
+				text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 			}
 
 			#sidebar nav a.active {
-				color: #ffffff;
+				color: #00d4ff;
+				text-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
 			}
 
 				#sidebar nav a.active:after {
